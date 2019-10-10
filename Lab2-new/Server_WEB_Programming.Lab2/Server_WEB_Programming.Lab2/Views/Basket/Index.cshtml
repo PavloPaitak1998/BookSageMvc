@@ -1,0 +1,58 @@
+﻿@using Server_WEB_Programming.Lab2.Dal.Entities
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Basket</h2>
+
+<p>
+    @Html.ActionLink("Books", "Index", "Books")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Sages
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in (List<BookOrder>)Session["basket"])
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Description)
+            </td>
+            <td>
+                @Html.ListBox("Id", new SelectList(item.Book.Sages, "IdSage", "Name"))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "Remove", "Basket", new { id = item.Book.IdBook }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p>
+    <input type="button"
+           value="Complete Order"
+           onclick="location.href='@Url.Action("CompleteOrder", "Basket")'" />
+</p>
+

@@ -1,0 +1,82 @@
+﻿@model Server_WEB_Programming.Lab2.Dal.Entities.Book
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+
+    <h4>Sages</h4>
+    <hr />
+
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>                    
+            <th>                     
+                Age
+            </th>                    
+            <th>                     
+                Photo
+            </th>                    
+            <th>                     
+                City
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Sages)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Photo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
+<p>
+    @if (User.IsInRole("admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.IdBook })
+    }
+    else
+    {
+        @Html.ActionLink("ToBasket", "Buy", "Basket", new { id = Model.IdBook }, null)
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>
